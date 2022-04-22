@@ -5,7 +5,7 @@ import Home from '../pages/Home';
 import MyLinks from '../pages/MyLinks';
 
 import Colors from '../Themes/colors';
-import { IonIcons} from '@expo/vector-icons'
+import { Ionicons} from '@expo/vector-icons'
 
 const Drawer = createDrawerNavigator();
 
@@ -13,11 +13,9 @@ export default function Routes(){
   return (
     <Drawer.Navigator
         screenOptions={{
-            drawerStyle: {
-                marginTop: 16,
-            },
             drawerActiveBackgroundColor: Colors.appBackground1,
             drawerActiveTintColor: Colors.white,
+            headerShown: false
             }
         }
     >
@@ -27,10 +25,11 @@ export default function Routes(){
             options={{
                 title: 'Link Shortener',
                 drawerIcon: ({focused, size, color}) => (
-                    <IonIcons 
-                        name='cube'
+                    <Ionicons 
+                        name={focused ? 'cube' : 'cube-outline'}
                         color={color}
-                        size={size}                    />
+                        size={size}                    
+                    />
                 )
             }}
         />
@@ -38,6 +37,16 @@ export default function Routes(){
     <Drawer.Screen 
             name='MyLinks'
             component={MyLinks}
+            options={{
+                title: 'My Links',
+                drawerIcon: ({focused, size, color}) => (
+                    <Ionicons 
+                        name={focused ? 'stats-chart' : 'stats-chart-outline'}
+                        color={color}
+                        size={size}                    
+                    />
+                )
+            }}
             
         />
     </Drawer.Navigator>
