@@ -10,7 +10,7 @@ import Colors from '../../Themes/colors';
 export function Header(){
     const navigation = useNavigation();
   return (
-    <View>
+    <View style={styles.container}>
         <TouchableOpacity 
             style={styles.menuButton}
             onPress={ () => navigation.openDrawer() }
