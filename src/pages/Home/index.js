@@ -1,57 +1,96 @@
-import React from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { 
+  View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Modal
+ } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBarPage } from '../../components/StatusBarPage';
 import { Header } from '../../components/Header';
 import { Feather} from '@expo/vector-icons';
+import { ModalLink } from '../../components/ModalLink';
 
 import { styles } from './styles';
 import Colors from '../../Themes/colors';
 
 export default function Home(){
+
+  const [input, setInput] = useState('');
+
+  function handleShortLink() {
+    alert(input)
+  }
+
   return (
-    <LinearGradient
-      colors={[Colors.appBackground1, Colors.appBackground2]}
-      style={{ flex: 1, justifyContent: 'center' }}
-    >
+    <TouchableWithoutFeedback onPress={ () => Keyboard.dismiss()}>
+      <LinearGradient
+        colors={[Colors.appBackground1, Colors.appBackground2]}
+        style={{ flex: 1, justifyContent: 'center' }}
+      >
 
-      <StatusBarPage 
-        barStyle='light-content'
-        backgroundColor={Colors.appBackground1}
-      />
-
-      <Header />
-
-      <View style={styles.containerLogo}>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/logo.png')}
-          resizeMode='contain'
+        <StatusBarPage 
+          barStyle='light-content'
+          backgroundColor={Colors.appBackground1}
         />
-      </View>
 
-      <View style={styles.containerContent}>
-        <Text style={styles.title}>
-          URL in a Nutshell
-        </Text>
-        <Text style={styles.subtitle}>
-          Paste the link you want to shorten
-        </Text>
-        <View style={styles.containerInput}>
-          <View style={styles.boxIcon}>
-          <Feather 
-            name='link'
-            size={22}
-            color={Colors.white}
-          />
+        <Header />
+
+        <KeyboardAvoidingView 
+          behavior={ Platform.OS === 'android' ? 'padding' : 'position'}
+          enabled
+        >
+          <View style={styles.containerLogo}>
+            <Image
+              style={styles.logo}
+              source={require('../../assets/logo.png')}
+              resizeMode='contain'
+            />
           </View>
-          <TextInput 
-            style={styles.input}
-            placeholder='Paste your link'
-          />
-        </View>
-      </View>
-    </LinearGradient>
+
+          <View style={styles.containerContent}>
+            <Text style={styles.title}>
+              URL in a Nutshell
+            </Text>
+            <Text style={styles.subtitle}>
+              Paste the link you want to shorten
+            </Text>
+            <View style={styles.containerInput}>
+              <View style={styles.boxIcon}>
+              <Feather 
+                name='link'
+                size={22}
+                color={Colors.white}
+              />         
+              </View>
+              <TextInput 
+                style={styles.input}
+                placeholder='Paste your link here.'
+                placeholderTextColor='white'
+                autoCapitalize='none'
+                autoCorrect={false}
+                keyboardType='url'
+                value={input}
+                onChangeText={ (text) => setInput(text) }
+              />
+              
+            </View>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={ handleShortLink }
+            >
+                <Text style={styles.buttonText}>
+                  Generate Link
+                </Text>
+              </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
+        <Modal 
+          visible={true}
+          transparent
+          animationType='slide'
+        >
+          <ModalLink />
+        </Modal>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 }

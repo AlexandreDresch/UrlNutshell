@@ -57,6 +57,19 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.transparentWhite,
     borderTopRightRadius: 7,
     borderBottomRightRadius: 7,
-    fontSize: 17
-  }
+    fontSize: 17,
+    color: Colors.white
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 45,
+    backgroundColor: Colors.white,
+    marginHorizontal: 15,
+    borderRadius: 7,
+    marginBottom: 130
+  },
+  buttonText: {
+    fontSize: 16
+  },
 });
