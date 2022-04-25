@@ -14,10 +14,12 @@ import Colors from '../../Themes/colors';
 
 export default function Home(){
 
-  const [input, setInput] = useState('');
+  const [ input, setInput ] = useState('');
+  const [ modalVisible, setModalVisible ] = useState(false);
 
   function handleShortLink() {
-    alert(input)
+    
+    setModalVisible(true);
   }
 
   return (
@@ -84,11 +86,11 @@ export default function Home(){
           </View>
         </KeyboardAvoidingView>
         <Modal 
-          visible={true}
+          visible={modalVisible}
           transparent
           animationType='slide'
         >
-          <ModalLink />
+          <ModalLink onClose={ () => setModalVisible(false) }/>
         </Modal>
       </LinearGradient>
     </TouchableWithoutFeedback>
