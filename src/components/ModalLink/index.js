@@ -1,12 +1,29 @@
 import React from 'react';
 
-import { View, TouchableOpacity, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableOpacity, Text, TouchableWithoutFeedback, Share } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import * as Clipboard from 'expo-clipboard';
 
 import { styles } from './styles';
 import Colors from '../../Themes/colors';
 
 export function ModalLink({ onClose }){
+
+  function handleCopy() {
+    Clipboard.setString('https://linktest.com');
+    alert('Link copied')
+  }
+
+  async function handleShare() {
+    try {
+      const result = await Share.share({
+        message: `Link: https://linktest.com`
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <View style={styles.modalContainer}>
       <TouchableWithoutFeedback onPress={ onClose }>
@@ -21,7 +38,9 @@ export function ModalLink({ onClose }){
               size={30}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleShare}
+          >
             <Feather 
               name='share'
               color={Colors.black}
@@ -42,6 +61,7 @@ export function ModalLink({ onClose }){
           <TouchableOpacity 
             style={styles.shortLinkButton}
             activeOpacity={.9}
+            onPress={handleCopy}
           >
             <Text 
               style={styles.shortLink}
@@ -49,7 +69,9 @@ export function ModalLink({ onClose }){
             >
             https://www.google.com
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity 
+              onPress={handleCopy}
+            >
               <Feather 
                 name='copy'
                 color={Colors.white}
