@@ -8,6 +8,7 @@ import { StatusBarPage } from '../../components/StatusBarPage';
 import { Header } from '../../components/Header';
 import { Feather} from '@expo/vector-icons';
 import { ModalLink } from '../../components/ModalLink';
+import api from '../../services/api';
 
 import { styles } from './styles';
 import Colors from '../../Themes/colors';
@@ -17,9 +18,18 @@ export default function Home(){
   const [ input, setInput ] = useState('');
   const [ modalVisible, setModalVisible ] = useState(false);
 
-  function handleShortLink() {
-    
-    setModalVisible(true);
+  async function handleShortLink() {
+    try {
+      const response = await api.post('/shorten', 
+      {
+        long_url: input
+      })
+      console.log(response.data)
+    } catch {
+      alert('Something went wrong, please try again.')
+      Keyboard.dismiss();
+      setInput('');
+    }    
   }
 
   return (
