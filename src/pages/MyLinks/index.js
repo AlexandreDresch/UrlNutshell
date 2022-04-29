@@ -18,7 +18,7 @@ export default function MyLinks(){
       <View style={styles.container}>
         <StatusBarPage 
         barStyle='light-content'
-        backgroundColor={Colors.appBackground2}
+        backgroundColor={Colors.appBackground1}
         />
 
         <Header />

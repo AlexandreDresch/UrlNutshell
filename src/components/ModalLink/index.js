@@ -7,17 +7,17 @@ import * as Clipboard from 'expo-clipboard';
 import { styles } from './styles';
 import Colors from '../../Themes/colors';
 
-export function ModalLink({ onClose }){
+export function ModalLink({ onClose, data }){
 
   function handleCopy() {
-    Clipboard.setString('https://linktest.com');
+    Clipboard.setString(data.link);
     alert('Link copied')
   }
 
   async function handleShare() {
     try {
       const result = await Share.share({
-        message: `Link: https://linktest.com`
+        message: `Link: ${data.link}`
       });
     } catch (error) {
       console.log(error.message);
@@ -56,7 +56,7 @@ export function ModalLink({ onClose }){
             style={styles.longLink}
             numberOfLines={1}
           >
-            https://www.google.com.br
+            {data.long_url}
           </Text>
           <TouchableOpacity 
             style={styles.shortLinkButton}
@@ -67,7 +67,7 @@ export function ModalLink({ onClose }){
               style={styles.shortLink}
               numberOfLines={1}
             >
-            https://www.google.com
+              {data.link}
             </Text>
             <TouchableOpacity 
               onPress={handleCopy}

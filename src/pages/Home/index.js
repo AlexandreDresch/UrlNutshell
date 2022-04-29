@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
-  View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Modal
- } from 'react-native';
+  View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, 
+  KeyboardAvoidingView, Platform, Modal, ActivityIndicator } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBarPage } from '../../components/StatusBarPage';
@@ -15,20 +15,30 @@ import Colors from '../../Themes/colors';
 
 export default function Home(){
 
+  const [ loading, setLoading ] = useState(false);
   const [ input, setInput ] = useState('');
   const [ modalVisible, setModalVisible ] = useState(false);
+  const [ data, setData ] = useState({});
 
   async function handleShortLink() {
+    setLoading(true);
     try {
       const response = await api.post('/shorten', 
       {
         long_url: input
       })
-      console.log(response.data)
+      setData(response.data)
+      setModalVisible(true);
+      
+      setLoading(false);
+      setInput('');
+      Keyboard.dismiss();
+
     } catch {
       alert('Something went wrong, please try again.')
       Keyboard.dismiss();
       setInput('');
+      setLoading(false);
     }    
   }
 
@@ -89,9 +99,19 @@ export default function Home(){
               style={styles.button}
               onPress={ handleShortLink }
             >
-                <Text style={styles.buttonText}>
-                  Generate Link
-                </Text>
+              {
+                loading ? (
+                  <ActivityIndicator 
+                    color={Colors.black} 
+                    size={24} 
+                  />
+                ) : (
+                  <Text style={styles.buttonText}>
+                    Generate Link
+                  </Text>
+                )
+              }
+                
               </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -100,7 +120,7 @@ export default function Home(){
           transparent
           animationType='slide'
         >
-          <ModalLink onClose={ () => setModalVisible(false) }/>
+          <ModalLink onClose={ () => setModalVisible(false) } data={data} />
         </Modal>
       </LinearGradient>
     </TouchableWithoutFeedback>
