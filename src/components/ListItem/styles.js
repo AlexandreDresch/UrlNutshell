@@ -18,5 +18,14 @@ export const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 20,
     fontSize: 18
+  },
+  actionButton: {
+    width: '14%',
+    backgroundColor: Colors.red,
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 7,
+    marginHorizontal: 10,
   }
 });

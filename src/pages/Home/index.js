@@ -9,6 +9,7 @@ import { Header } from '../../components/Header';
 import { Feather} from '@expo/vector-icons';
 import { ModalLink } from '../../components/ModalLink';
 import api from '../../services/api';
+import { saveLink } from '../../utils/storeLinks';
 
 import { styles } from './styles';
 import Colors from '../../Themes/colors';
@@ -29,6 +30,8 @@ export default function Home(){
       })
       setData(response.data)
       setModalVisible(true);
+
+      saveLink('links', response.data)
       
       setLoading(false);
       setInput('');
