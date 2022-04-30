@@ -14,7 +14,12 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.white
   },
-  linkList: {
-    
+  warningContainer: {
+    marginTop: '15%',
+    alignItems: 'center'
+  },
+  warningText: {
+    fontSize: 17,
+    color: Colors.white
   }
 });

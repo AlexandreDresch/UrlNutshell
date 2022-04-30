@@ -23,5 +23,10 @@ export async function saveLink(key, newLink) {
 }
 
 export async function deleteLink(links, id) {
+    let myLink = links.filter( (item) => {
+        return (item.id !== id)
+    })
+    await AsyncStorage.setItem('links', JSON.stringify(myLink));
 
+    return myLink;
 }

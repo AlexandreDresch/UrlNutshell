@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { View, Text, FlatList, Modal } from 'react-native';
+import { View, Text, FlatList, Modal, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useIsFocused } from '@react-navigation/native';
+
 import { StatusBarPage } from '../../components/StatusBarPage';
 import { Header } from '../../components/Header';
 import { ListItem } from '../../components/ListItem';
-import { useIsFocused } from '@react-navigation/native';
-import { getLinksSave } from '../../utils/storeLinks';
 import { ModalLink } from '../../components/ModalLink';
+
+import { getLinksSave, deleteLink } from '../../utils/storeLinks';
 
 import Colors from '../../Themes/colors';
 import { styles } from './styles';
@@ -17,12 +19,15 @@ export default function MyLinks(){
   const [ links, setLinks ] = useState([]);
   const [ data, setData ] = useState({});
   const [ modalVisible, setModalVisible ] = useState(false);
+  const [ loading, setLoading ] = useState(true);
+
   const isFocused = useIsFocused();
 
   useEffect(() => {
     async function getLink(){
       const result = await getLinksSave('links');
       setLinks(result);
+      setLoading(false);
     }
 
     getLink();
@@ -33,8 +38,9 @@ export default function MyLinks(){
     setModalVisible(true);
   }
 
-  function handleDelete(id) {
-
+  async function handleDelete(id) {
+    const result = await deleteLink(links, id);
+    setLinks(result)
   }
 
   return (
@@ -53,6 +59,27 @@ export default function MyLinks(){
         <Text style={styles.title}>
           My Links
         </Text>
+
+        { loading && (
+          <View style={styles.warningContainer}>
+            <ActivityIndicator 
+              color={Colors.white}
+              size={25}
+            />
+          </View>
+        )
+
+        }
+
+        { !loading && links.length === 0 && (
+          <View style={styles.warningContainer}>
+            <Text style={styles.warningText}>
+              You don't have any saved links yet.
+            </Text>
+          </View>
+        )
+
+        }
 
         <FlatList 
           style={styles.linkList}
