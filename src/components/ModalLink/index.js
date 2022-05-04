@@ -12,9 +12,10 @@ export function ModalLink({ onClose, data }){
   function handleCopy() {
     Clipboard.setString(data.link);
     alert('Link copied')
-  }
+  };
 
   async function handleShare() {
+
     try {
       const result = await Share.share({
         message: `Link: ${data.link}`
@@ -22,7 +23,7 @@ export function ModalLink({ onClose, data }){
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   return (
     <View style={styles.modalContainer}>
@@ -83,4 +84,4 @@ export function ModalLink({ onClose, data }){
       </View>
     </View>
   );
-}
+};

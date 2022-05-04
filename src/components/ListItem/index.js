@@ -22,7 +22,7 @@ export function ListItem({data, selectedItem, deleteItem}){
         />
       </TouchableOpacity>
     )
-  }
+  };
 
   return (
     <View>
@@ -47,4 +47,4 @@ export function ListItem({data, selectedItem, deleteItem}){
       </Swipeable>
     </View>
   );
-}
+};

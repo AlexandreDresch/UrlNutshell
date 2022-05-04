@@ -36,12 +36,12 @@ export default function MyLinks(){
   function handleItem(item) {
     setData(item);
     setModalVisible(true);
-  }
+  };
 
   async function handleDelete(id) {
     const result = await deleteLink(links, id);
-    setLinks(result)
-  }
+    setLinks(result);
+  };
 
   return (
     <LinearGradient 
@@ -101,4 +101,4 @@ export default function MyLinks(){
       </View>
     </LinearGradient>
   );
-}
+};

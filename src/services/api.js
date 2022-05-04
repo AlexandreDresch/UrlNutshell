@@ -8,7 +8,7 @@ const api = axios.create({
         'Authorization': `Bearer ${key}`,
         'Content-Type': 'application/json'        
     }
-})
+});
 
 export default api;
 

@@ -6,7 +6,7 @@ export async function getLinksSave(key) {
     let linkSaves = JSON.parse(myLinks) || [];
 
     return linkSaves;
-}
+};
 
 export async function saveLink(key, newLink) {
     let linkStored = await getLinksSave(key);
@@ -15,12 +15,11 @@ export async function saveLink(key, newLink) {
 
     if(hasLink){
         return;
-    }
+    };
 
     linkStored.push(newLink);
-    await AsyncStorage.setItem(key, JSON.stringify(linkStored))
-    console.log('link saved')
-}
+    await AsyncStorage.setItem(key, JSON.stringify(linkStored));
+};
 
 export async function deleteLink(links, id) {
     let myLink = links.filter( (item) => {
@@ -29,4 +28,4 @@ export async function deleteLink(links, id) {
     await AsyncStorage.setItem('links', JSON.stringify(myLink));
 
     return myLink;
-}
+};

@@ -23,6 +23,7 @@ export default function Home(){
 
   async function handleShortLink() {
     setLoading(true);
+
     try {
       const response = await api.post('/shorten', 
       {
@@ -128,4 +129,4 @@ export default function Home(){
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
-}
+};
